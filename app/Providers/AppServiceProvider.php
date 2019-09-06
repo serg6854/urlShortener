@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\UrlShortener\DriverFactory;
+use App\Services\UrlShortener\UrlShortener;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->bind(UrlShortener::class, function () {
+            $driver = DriverFactory::make();
+
+            return new UrlShortener($driver);
+        });
+
+        $this->app->alias(UrlShortener::class, 'urlshortener');
     }
 }
