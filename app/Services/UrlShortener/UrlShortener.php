@@ -7,7 +7,7 @@ class UrlShortener
     /**
      * @var Driver
      */
-    private $driver;
+    private Driver $driver;
 
     public function __construct(Driver $driver)
     {
